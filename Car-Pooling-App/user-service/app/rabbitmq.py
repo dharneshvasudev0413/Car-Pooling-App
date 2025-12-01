@@ -1,7 +1,9 @@
 import pika
 import json
-RABBITMQ_HOST = "localhost"
-RABBITMQ_QUEUE = "user.events"
+from app.config import RABBITMQ_HOST
+from app.config import RABBITMQ_QUEUE
+# RABBITMQ_HOST = "localhost"
+# RABBITMQ_QUEUE = "user.events"
 
 def publish_event(event_name:str,data:dict):
     """Publish user--related event to this MQ"""
@@ -30,3 +32,6 @@ def publish_event(event_name:str,data:dict):
             delivery_mode=2
         )
     )
+
+    print("Event Published!!!!", payload)
+    connection.close()

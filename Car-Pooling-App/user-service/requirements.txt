@@ -1,6 +1,9 @@
 fastapi
 uvicorn
 sqlalchemy
-psycopg2
+# psycopg2
 pika
-pydantic
+# pydantic
+python-jose[cryptography]
+passlib[bcrypt]
+email-validator

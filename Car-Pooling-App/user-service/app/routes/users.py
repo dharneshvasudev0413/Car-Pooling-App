@@ -1,0 +1,29 @@
+from fastapi  import APIRouter, Depends, HTTPException
+from sqlalchemy.orm import Session
+
+from app.db import get_db
+from app.deps import get_current_user
+from app import models
+from app.schemas import UserResponse
+from app.rabbitmq import publish_event
+
+router = APIRouter(prefix="/users", tags=["Users"])
+
+# GET current logged-in user
+@router.post("/current",response_model=UserResponse)
+def register(current_user: models.User = Depends(get_current_user)):
+    return current_user
+
+@router.post("/delete")
+def delete_user(db: Session = Depends(get_db),
+                current_user: models.User = Depends(get_current_user)
+                ):
+    if not current_user:
+        raise HTTPException(status_code=404, detail="User Not Found!!")
+    
+    db.delete(current_user)
+    db.commit()
+
+    publish_event("user.deleted", {"id": current_user.id})
+
+    return{"payload": "User Deleted!!!"}

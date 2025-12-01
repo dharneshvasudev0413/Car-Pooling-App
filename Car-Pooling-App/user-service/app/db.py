@@ -1,26 +1,29 @@
+# import os
+
+# # Database connection details
+# DB_USER = "postgres"
+# DB_PASSWORD = "password"
+# DB_HOST = "localhost"
+# DB_NAME = "users_db"
+
+# DATABASE_URL = f"postgresql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}/{DB_NAME}"
+
+
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, declarative_base
-import os
+from app.config import DATABASE_URL
+# DATABASE_URL = "sqlite:///./users.db"
 
-# Database connection details
-DB_USER = "postgres"
-DB_PASSWORD = "password"
-DB_HOST = "localhost"
-DB_NAME = "users_db"
+# For SQLite, we need this extra connect_args
+engine = create_engine(
+    DATABASE_URL, 
+    connect_args={"check_same_thread": False} if DATABASE_URL.startswith("sqlite") else{}
+)
 
-DATABASE_URL = f"postgresql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}/{DB_NAME}"
-
-# SQLAlchemy engine
-engine = create_engine(DATABASE_URL)
-
-# Session
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
-# Base class for models
 Base = declarative_base()
 
-
-# Dependency to get DB session
 def get_db():
     db = SessionLocal()
     try:
