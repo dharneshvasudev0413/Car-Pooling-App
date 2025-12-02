@@ -25,7 +25,7 @@ Exceute it-> 200OK will come with a new column the 'id' of the customer
   "email": "sh@example.com",
   "password": "246891"
 }
-xcute and see a token will be generated! 
+Exceute and see a token will be generated! 
 
 6.Copy the access_token -> Go to top right -> Click 'AUTHORIZE' -> In VALUE label-> Paste the token-> OK -> CLOSE
 

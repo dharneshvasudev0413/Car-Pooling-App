@@ -3,7 +3,7 @@ from typing import Optional
 
 # Base schema for shared fields
 class UserBase(BaseModel):
-    firstName: set
+    firstName: str
     lastName: str
     email: EmailStr
 
