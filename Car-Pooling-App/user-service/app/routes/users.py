@@ -10,11 +10,11 @@ from app.rabbitmq import publish_event
 router = APIRouter(prefix="/users", tags=["Users"])
 
 # GET current logged-in user
-@router.post("/current",response_model=UserResponse)
-def register(current_user: models.User = Depends(get_current_user)):
+@router.get("/me",response_model=UserResponse)
+def get_current(current_user: models.User = Depends(get_current_user)):
     return current_user
 
-@router.post("/delete")
+@router.delete("/delete")
 def delete_user(db: Session = Depends(get_db),
                 current_user: models.User = Depends(get_current_user)
                 ):

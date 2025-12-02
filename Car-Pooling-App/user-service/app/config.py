@@ -7,7 +7,6 @@ DATABASE_URL = "sqlite:///./users.db"
 # DATABASE_URL = "postgresql://user:password@db-host/db-name" or
 # DATABASE_URL = f"postgresql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}/{DB_NAME}"
 
-
 # JWT / SECURITY
 SECRET_KEY = "super-secret-key-change-this"  # change for real deployment
 ALGORITHM = "HS256"
